@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>上传音频文件</title>
+    <style></style>
+  </head>
+  <body>
+    <section>
+        <input type="file" id="uploadFileInput" />
+    </section>
+  </body>
+  <script>
+    (function () {
+        function sendFile(file) {
+            const url = 'index.php';
+            const xhr = new XMLHttpRequest();
+            const data = new FormData();
+            xhr.open('GET', url, true);
+            xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.response);
+                }
+            }
+            data.append('file', file);
+            xhr.send(data);
+        }
+
+        function handleFiles(event) {
+            const file = event.target.files[0];
+            sendFile(file);
+        }
+
+        function handleAudio() {
+            const inputDom = document.getElementById("uploadFileInput");
+            inputDom.addEventListener("change", handleFiles, false);
+        }
+
+        function initPage() {
+            handleAudio();
+        }
+
+        initPage();
+    })();
+  </script>
+</html>
