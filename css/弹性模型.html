@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>弹性盒模型</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		article {
+			display: flex;
+			width: 800px;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			border: 1px blue solid;
+			justify-content: flex-end;
+			height: 400px;
+			align-items: flex-start;
+		}
+		section {
+			width: 200px;
+			height: 100px;
+			background: #eee;
+			border: 1px red solid;
+			box-sizing: border-box;
+			align-self: center;
+		}
+		article :nth-child(1) {
+			align-self: flex-start;
+		}
+		
+	</style>
+</head>
+<body>
+	<main>
+		<article>
+			<section>section1</section>
+			<section>section2</section>
+			<section>section3</section>
+		</article>
+	</main>
+</body>
+</html>

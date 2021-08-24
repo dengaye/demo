@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>文字溢出</title>
+	<style>
+		.single-line {
+			width: 100px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.duo-line1 {
+			width: 100px;
+			overflow: hidden;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			display: -webkit-box;
+		}
+	</style>
+</head>
+<body>
+	<div class="single-line">单行文字溢出单行文字溢出单行文字溢出单行文字溢出单行文字溢出单行文字溢出</div>
+	<div class="duo-line1">多行文字溢出多行文字溢出多行文字溢出多行文字溢出多行文字溢出</div>
+</body>
+</html>

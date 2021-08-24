@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		/* 相当于 html {color: red;} */
+		/* :root {
+			color: blue;
+		} */
+		/* :empty 为空的元素  */
+		/* div:empty {
+			display: none;
+		} */
+		div {
+			height: 2000px;
+			width: 300px;
+			border: 1px #000 solid;
+		}
+		div:target {
+			color: red;
+		}
+		/* main :first-child {
+			color: red;
+		} */
+		main h1:first-of-type {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<header>header</header>
+		<h1>h1</h1>
+		<h1>h1 2</h1>
+		<article>
+			article
+			<h2>article h2</h2>
+			<h1>article h1</h1>
+			<h1>article h1 2</h1>
+		</article>
+		<h2>h2</h2>
+		<h1>h1 end</h1>
+	</main>
+	<a href="#root">root</a>
+	<div></div>
+	<div id="root">root div</div>
+</body>
+</html>
