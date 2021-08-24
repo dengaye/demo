@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		body {
+			padding: 40px;
+		}
+		.box {
+			width: 200px;
+			height: 200px;
+			background: #eee;
+		}
+		.scale {
+			transform: translateX(0px) translateY(0px) translateZ(0px) scaleX(1) scaleY(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+			transform: translateX(0px) translateY(0px) translateZ(0px) scaleX(1.4) scaleY(1.3) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+		}
+		.animation {
+			animation-name: example;
+			animation-duration: 0.5s;
+		}
+		@keyframes example {
+			from {
+				transform: translateX(0px) translateY(0px) translateZ(0px) scaleX(1.4) scaleY(1.3) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+			}
+			to {
+				transform: translateX(0px) translateY(0px) translateZ(0px) scaleX(1) scaleY(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="box animation"></div>
+	<div class="box"></div>
+</body>
+</html>
