@@ -1,0 +1,122 @@
+
+<title>WebGL粒子系统 - www.web-tinker.com</title>
+<canvas id="canvas" width="512" height="512" />
+<script type="text/plain" id="vs_s">
+attribute vec3 position;
+uniform mat4 pMatrix;
+uniform mat4 mMatrix;
+varying float lWeight;
+void main(){
+  gl_Position=pMatrix*mMatrix*vec4(position,1.0);
+  gl_PointSize=2.0; //每个粒子的大小为2
+}
+</script>
+<script type="text/plain" id="fs_s">
+precision lowp float;
+uniform vec3 color;
+uniform float opacity;
+void main(){
+  gl_FragColor=vec4(color,opacity);
+}
+</script>
+<script>
+//准备着色器程序
+var webgl,program,vs,fs;
+webgl=canvas.getContext("experimental-webgl");
+program=webgl.createProgram();
+vs=webgl.createShader(webgl.VERTEX_SHADER);
+fs=webgl.createShader(webgl.FRAGMENT_SHADER);
+webgl.shaderSource(vs,vs_s.textContent);
+webgl.shaderSource(fs,fs_s.textContent);
+webgl.compileShader(vs);
+webgl.compileShader(fs);
+webgl.attachShader(program,fs);
+webgl.attachShader(program,vs);
+webgl.linkProgram(program);
+webgl.useProgram(program);
+
+//通用属性
+var mMatrix,pMatrix,opacity,color;
+mMatrix=webgl.getUniformLocation(program,"mMatrix");
+pMatrix=webgl.getUniformLocation(program,"pMatrix");
+opacity=webgl.getUniformLocation(program,"opacity");
+color=webgl.getUniformLocation(program,"color");
+webgl.uniformMatrix4fv(pMatrix,false,[3,0,0,0, 0,3,0,0, 0,0,-1,-1, 0,0,-2,0]);
+
+//顶点属性
+var position,colorBuffer;
+position=webgl.getAttribLocation(program,"position");
+webgl.enableVertexAttribArray(position);
+positionBuffer=webgl.createBuffer(webgl.ARRAY_BUFFER);
+webgl.bindBuffer(webgl.ARRAY_BUFFER,positionBuffer);
+webgl.vertexAttribPointer(position,3,webgl.FLOAT,false,0,0);
+
+//创建烟花对象
+var Hanabi=function(px,py){
+  //爆炸力场，用于计算移动
+  this.forcefield=new Float32Array(Hanabi*1),
+  //保存所有顶点坐标，用于绘制
+  this.position=new Float32Array(Hanabi*1),
+  //颜色信息，用于调整整个烟花的颜色
+  this.color=[Math.random(),Math.random(),Math.random()];
+  //模型矩阵，用于整体移动
+  this.mMatrix=[1,0,0,0, 0,1,0,0, 0,0,1,0, px,py,-20,1];
+  //为所有顶点计算相应的爆炸力
+  for(i=0;i<Hanabi;i+=3){
+    var a,b,l,r,x,y,z;
+    //以0.15的半径随机产生爆炸方向和速度，也就是随机产生球体内坐标
+    b=Math.random()*Math.PI*2,a=Math.acos(1-2*Math.random()),
+    l=Math.sin(a),y=Math.cos(a),x=Math.sin(b)*l,z=Math.cos(b)*l;
+    r=Math.random()*0.15;
+    this.forcefield[i]=x*r,this.forcefield[i+1]=y*r,this.forcefield[i+2]=z*r;
+  };
+};
+//定义每个烟花的定点数为10000个
+Hanabi.valueOf=function(){return 10000*3};
+Hanabi.prototype={
+  v:0,//重力初速度
+  g:0.005,//重力加速度
+  a:1,//生存期（透明度）
+  draw:function(){
+    //计算重力速度并消耗生存期
+    this.v+=this.g,this.a-=0.02;
+    //遍历顶点，根据爆炸力场计算顶点位置，并附上重力的影响
+    for(var i=0;i<Hanabi;i+=3){
+      this.position[i]+=this.forcefield[i],
+      this.position[i+1]+=this.forcefield[i+1]-this.v,
+      this.position[i+2]+=this.forcefield[i+2];
+    };
+    //设置通用属性
+    webgl.uniform1f(opacity,this.a);
+    webgl.uniform3fv(color,this.color);
+    webgl.uniformMatrix4fv(mMatrix,false,this.mMatrix);
+    //设置顶点数据
+    webgl.bindBuffer(webgl.ARRAY_BUFFER,positionBuffer);
+    webgl.bufferData(webgl.ARRAY_BUFFER,this.position,webgl.STATIC_DRAW);
+    //绘制顶点
+    webgl.drawArrays(webgl.POINTS,0,Hanabi/3);
+  }
+};
+
+//设置绘制属性
+webgl.enable(webgl.BLEND);
+webgl.blendFunc(webgl.SRC_ALPHA,webgl.ONE);
+webgl.clearColor(0,0,0,1);
+webgl.clear(webgl.COLOR_BUFFER_BIT);
+var HanabiList=[new Hanabi(0,5)]; //烟花动画队列，初始播放一次
+setInterval(function(){
+  webgl.clear(webgl.COLOR_BUFFER_BIT);
+  //遍历队列中的所有烟花对象执行，如果已经执行完就从队列中删除
+  for(i=0;i<HanabiList.length;i++)
+    HanabiList[i].a>0?HanabiList[i].draw():HanabiList.splice(i--,1);
+},16);
+
+//鼠标操作
+canvas.onclick=function(e){
+  //计算鼠标的3D位置
+  var mx=(e.layerX/canvas.width-0.5)*40/3,
+      my=-(e.layerY/canvas.height-0.5)*40/3;
+  //放置新的烟花
+  HanabiList.push(new Hanabi(mx,my));
+};
+</script>
