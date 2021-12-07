@@ -1,0 +1,22 @@
+<body>
+  <section id="root"></section>
+  <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+		const rootElement = document.getElementById("root");
+
+		/**
+		 * 	JSX
+		 *  是 JavaScript 的扩展语法，在 JavaScript 中使用类似 HTML 的语法
+		 * 	不过浏览器并不能认识它，需要使用编译工具（如 babel） 编译成浏览器能够识别的语言
+		 */
+		const element = (
+			<section id="app">
+				Hello World
+			</section>
+		);
+
+		ReactDOM.render(element, rootElement);
+  </script>
+</body>

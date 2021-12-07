@@ -1,0 +1,34 @@
+<body>
+    <section id="root"></section>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        function CountText({ text }) {
+            // js sytax
+
+            // jsx sytax，标签里面，可以用 props, children，tag close
+            // 在 div 里面，我们由可以使用 js 和 jsx，jsx 里面的 js 是受限制的，我们不能直接使用 if、for 等语句
+            return (
+                <div>
+                    The text has {text.length || 'No'} characters.
+                    <br />
+                    The text has {text.length ? <strong>{text.length}</strong> : <strong>No</strong>} characters.
+                </div>
+            )
+            // js sytax
+        }
+
+        const element = (
+            <section id="app">
+                <CountText text="World" />
+                <CountText text="" />
+            </section>
+        );
+
+        ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+  

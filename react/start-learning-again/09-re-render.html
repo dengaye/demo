@@ -1,0 +1,47 @@
+<body>
+    <section id="root"></section>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        /**
+         * react re-render vs js render
+         * react-re-render 
+         *  当出发重新渲染时，react 会比较这次返回的元素和上一次返回的元素，然后会给这两个元素做一个 div，然后值更新上一次和这一次 JSX 之间不同的内容
+         * 
+         * js render 
+         * 整个 #app 都会重新渲染
+         */
+        function tick() {
+            const time = new Date().toLocaleTimeString();
+            const element = (
+                <div>
+                    <input value={time} />   
+                    <input value={time} />   
+                    <div>{time}</div> 
+                </div>
+            )
+            ReactDOM.render(element, rootElement);
+
+            // js render 会有一个问题，当我们在 input 输入内容时，会看到我们可以输入一些信息，但是一秒后又被覆盖了，react 就不会有这个问题
+            // 因为 js render 的时候，旧元素只有在新元素出现时才被移除
+            // const element = `
+            //     <div>
+            //         <input value=${time} />   
+            //         <input value=${time} />   
+            //         <div>${time}</div> 
+            //     </div>
+            // `;
+
+            // rootElement.innerHTML = element;
+        }
+
+        tick();
+
+        setInterval(tick, 1000)
+
+    </script>
+  </body>
+  

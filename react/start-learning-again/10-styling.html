@@ -1,0 +1,39 @@
+<body>
+    <section id="root"></section>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <style>
+        .box {
+            width: 100%;
+            height: 30px;
+            border: 1px solid #3e3e3e;
+        }
+
+        .small-box {
+            width: 200x;
+        }
+    </style>
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        const Box = ({ className = '', size = "", ...rest }) => {
+            const sizeClassName = size ? `${size}-box` : '';
+            return <div 
+                className={`box ${className} ${sizeClassName}`} 
+                {...rest} 
+            />
+        }
+
+        const element = (
+            <section>
+                <Box size="small" style={{ backgroundColor: 'red' }}> Small box</Box>
+                <Box>moddile box</Box>
+                <Box>big box</Box>
+            </section>
+        )
+
+        ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+  

@@ -1,0 +1,38 @@
+<body>
+  <section id="root"></section>
+  <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
+  <script>
+    const rootElement = document.getElementById("root");
+    /** 
+     * React 中创建元素的方式，最终会生成一个对象
+     * 
+     * createElement 参数
+     * 1. type。
+     *  a. 标签名字符串（如 'div','span')
+     *  b. React 组件（函数式组件或者 class 组件）
+     *  c. React fragment
+     * 
+     * 2. props
+     *  
+     * 3. [...children]
+     * 可以传多个 children
+    */
+    const element = React.createElement(
+        "section", 
+        {
+            className: "container",
+            style: {
+                color: 'red'
+            }
+        },
+        'Hello Wolld',
+        React.createElement('p', null, 'I am a code')
+    );
+
+    /** 
+     * 插入到页面当中
+    */
+    ReactDOM.render(element, rootElement);
+  </script>
+</body>
