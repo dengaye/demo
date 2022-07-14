@@ -9,8 +9,10 @@
 		/**
 		 * 	JSX
 		 *  是 JavaScript 的扩展语法，在 JavaScript 中使用类似 HTML 的语法
+		 * 
 		 * 	不过浏览器并不能认识它，需要使用编译工具（如 babel） 编译成浏览器能够识别的语言
 		 */
+
 		const element = (
 			<section id="app">
 				Hello World
@@ -18,5 +20,12 @@
 		);
 
 		ReactDOM.render(element, rootElement);
+
+		/**
+		 * babel 是一个 JavaScript 编译器
+		 * 支持新版的 JavaScript 以及类似于 JSX 的非标准特性
+		 * 
+		 * 我们可以在 head 标签看到一个新的 script，里面就是我们代码的编译版本
+		*/
   </script>
 </body>
