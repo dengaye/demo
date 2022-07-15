@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布局和包含块</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box,
+        .box2 {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            /* display: inline; */
+        }
+
+        .box-1,
+        .box-2 {
+            width: 50%;
+            height: 50%;
+        }
+
+        .box2 {
+            transform: rotate(45deg);
+        }
+
+        .box-2 {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        元素的尺寸和布局受包含块的影响，一般元素的包含就是其最近的父元素的内容块
+
+        1. 包含块会影响一些什么？
+            元素的 width、height、padding、margin，绝对定位元素的偏移量（如 position 设置为 absolute 或者 fixed）设置为百分比的时候，它们值的计算就与包含块有关
+        
+        2. 怎么确定包含块了？
+            确定元素的包含块取决于元素的 position 值
+            - position 的属性为 static、relative、sticky，包含块由它最近的祖先元素的内容区域决定
+            - position 属性为 absolute，包括块为元素最近的 position 不为 static 的祖先元素的内边距区的边缘组成
+            - position 的属性为 fixed，在连续媒体的情况下 (continuous media) 包含块是 viewport ,在分页媒体 (paged media) 下的情况下包含块是分页区域 (page area)
+            - position 属性为 absolute 或 fixed，包含块也可能是由满足以下条件的最近父级元素的内边距区的边缘组成的：
+              - transform 或 perspective 的值不是 none
+              - will-change 的值是 transform 或 perspective
+              - filter 的值不是 none 或 will-change 的值是 filter(只在 Firefox 下生效).
+              - contain 的值是 paint (例如: contain: paint;)
+            
+        3. 百分比值的计算
+           - height top bottom 中的百分值，通过包含块的 height 计算。如果包含块的 height 的值会根据它的内容变化，而且包含块的 position 属性值为 relative 或者 static，这些值的计算值为 auto
+           - width left padding margin right 由包含块的 width 计算
+
+     -->
+    <section class="box">
+        正常布局
+        <p></p>
+        ....
+        50%
+        <section class="box-1">Hello World</section>
+    </section>
+
+    <section class="box2">
+        <!--
+
+         -->
+        position: absolute
+        <p></p>
+        ....
+        50%
+        <section class="box-2">Hello World</section>
+    </section>
+
+    <script>
+        function printSize(dom, printDom) {
+            console.dir(dom)
+            if (!dom) return;
+            const width = dom.offsetWidth;
+            const height = dom.offsetHeight;
+           (printDom || dom).innerHTML = `
+                size: 
+                <p>width: ${width}</p>
+                <p>height: ${height}</p>
+            `
+        }
+
+        printSize(document.querySelector('.box'), document.querySelector('.box p'))
+        printSize(document.querySelector('.box-1'))
+
+        printSize(document.querySelector('.box2'), document.querySelector('.box2 p'))
+        printSize(document.querySelector('.box-2'))
+    </script>
+</body>
+</html>
