@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC Block Formatting Context</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        p {
+            margin: 10px;
+            border: 1px solid #eee;
+        }
+
+        .bfc {
+            overflow: auto;
+        }
+
+        .box {
+            border: 1px solid greenyellow;
+            padding: 5px;
+        }
+
+        .float {
+            float: left;
+            border: 1px solid red;
+            height: 200px;
+        }
+
+        .border {
+            border: 1px solid royalblue;
+        }
+    </style>
+</head>
+<body>
+    margin 重叠
+    <section>
+        <p>1. p111</p>
+        <p>2.ss xxd</p>
+    </section>
+
+    BFC
+    <section>
+        <p>1. p111</p>
+       <section class="bfc">
+            <p>2.ss xxd</p>
+       </section>
+    </section>
+
+    浮动
+    <section class="box">
+        <section class="float">float</section>
+        <section class="border">normal box normal box</section>
+    </section>
+    <section class="box" style="overflow: auto;">
+        <section class="float">float</section>
+        <section class="border">normal box normal box</section>
+    </section>
+</body>
+</html>
