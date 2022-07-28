@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Paint</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        section {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            --backgroundColor: #ff4c4b;
+            background-image: paint(custom-background);
+        }
+    </style>
+</head>
+<body>
+    <section id="box"></section>
+
+    <script>
+        if ('paintWorklet' in CSS) {
+            CSS.paintWorklet.addModule('./painit.js')
+            // CSS.paintWorklet.addModule(`data:application/javascript;charset=utf8,${encodeURIComponent(`
+            //     class CustomBackgroundPainter {
+            //         paint(ctx, size) {
+            //         const color = '#2ecc71';
+            //         const margin = 30
+            //         // 设置填充色
+            //         ctx.fillStyle = color;
+            //         // 画一个矩形覆盖整个元素
+            //         ctx.rect(margin, margin, size.width - margin * 2, size.height - margin * 2);
+            //         // 颜色填充
+            //         ctx.fill();
+            //         }
+            //     }
+
+            //     // Register our class under a specific name
+            //     registerPaint('custom-background', CustomBackgroundPainter); `)}`
+            // )
+        }
+
+        const dom = document.querySelector('#box');
+
+        dom.addEventListener('mouseenter', function(e) {
+            this.style.setProperty('--mouse-x', e.clientX);
+            this.style.setProperty('--mouse-y', e.clientY);
+        });
+
+        dom.addEventListener('mousemove', function(e) {
+            this.style.setProperty('--mouse-x', e.clientX);
+            this.style.setProperty('--mouse-y', e.clientY);
+        })
+        dom.addEventListener('mouseleave', function(e) {
+            this.style.setProperty('--mouse-x', -999);
+            this.style.setProperty('--mouse-y', -999);
+        })
+    </script>
+</body>
+</html>

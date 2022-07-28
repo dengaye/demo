@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>auto</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            width: 600px;
+            padding: 10px;
+            border: 10px solid goldenrod;
+            margin: 10px 40px;
+        }
+
+        .box-content {
+            padding: 10px;
+            margin: 20px;
+            background-color: violet;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        width: 默认时 auto，等于 padding-left + padding-right + margin-right + border-right + border-left
+
+        width： 100%； 100% 的值与该元素的包含块有关，一般情况下，等于父元素的宽度
+     -->
+    <section class="box">
+        <section class="box-content">box auto</section>
+    </section>
+</body>
+</html>
