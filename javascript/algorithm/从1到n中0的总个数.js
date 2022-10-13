@@ -22,3 +22,21 @@ function countZero(n) {
 }
 
 console.log(countZero(100))
+
+
+/**
+ * 找规律
+ * 如果一个数能够被 10 整除，则起码有 10 个 0；
+ * 
+ * 
+ */
+
+function statisticZero(num) {
+	let count = 00
+	while(num > 0) {
+		count += Math.floor(num / 10);
+		num /= 10;
+	}
+
+	return count;
+}
