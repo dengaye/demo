@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflow and Painting</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            width: 50%;
+            height: 500px;
+            border: 1px solid rebeccapurple;
+        }
+
+        .box1 {
+            width: 50%;
+            height: 200px;
+            /* border: 1px solid royalblue; */
+            /* position: relative; */
+            /* top: 10px; */
+            /* padding-right: 10px; */
+        }
+    </style>
+</head>
+<body>
+    <section class="box">
+        <section class="box1"></section>
+    </section>
+
+    <script>
+        const box1 = document.querySelector('.box1');
+
+        setTimeout(function() {
+            box1.style.cssText += box1.style.cssText + `padding-top: 20px; color: red;`
+        }, 1000)
+    </script>
+</body>
+</html>
