@@ -35,6 +35,10 @@ const schema = buildSchema(`
     rollDice(numDice: Int!, numSides: Int): [Int]
     user: IUser
   },
+
+  type Generator {
+    price: Int
+  }
 `);
  
 const root = {
@@ -49,6 +53,11 @@ const root = {
     return {
       name: 'Jane',
       age: 20
+    }
+  },
+  generator: () => {
+    return {
+      price: 90
     }
   }
 };
