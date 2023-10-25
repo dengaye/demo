@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scroll</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            height: 110px;
+            border: 1px solid red;
+        }
+
+        .container {
+            display: flex;
+            margin-top: 10px;
+            border: 1px solid #eee;
+            padding: 20px;
+        }
+
+        aside {
+            position: sticky;
+            top: 0;
+            border: 1px solid #787878;
+            width: 300px;
+            line-height: 36px;
+            height: 500px;
+            overflow: auto;
+            position: sticky;
+            top: 0;
+        }
+
+        aside div {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #fff;
+        }
+
+        ul {
+            list-style: none;
+        }
+        li {
+            display: block;
+        }
+        main {
+            margin-left: 20px;
+            border: 1px solid #909090;
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+    <header>hh</header>
+    <div class="container">
+        <aside>
+            <div>header</div>
+            <ul>
+               <li>1</li>
+               <li>2</li>
+               <li>3</li>
+               <li>3</li>
+               <li>3</li>
+               <li>3</li>
+               <li>3</li>
+               <li>3</li>
+               <li>3</li>
+               <li>4</li>
+               <li>5</li>
+               <li>6</li>
+               <li>6</li>
+               <li>7</li>
+               <li>8</li>
+               <li>end</li>
+            </ul>
+        </aside>
+        <main>
+            <div>content</div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Import JSON And CSS</title>
+</head>
+<body>
+  <button id="json-btn">Load json file</button>
+  <br/>
+  <button id="css-btn">Load css file</button>
+
+  <script >
+    const jsonBtnDom = document.getElementById('json-btn');
+    jsonBtnDom.addEventListener('click', async () => {
+      // assert 将来会改为 with，目前还处于提案阶段 https://github.com/tc39/proposal-import-attributes
+      const jsonModule = await import('./data.json', { assert: { type: 'json' } });
+      console.log(jsonModule.default);
+    })
+
+
+    const cssBtnDom = document.getElementById('css-btn');
+
+    cssBtnDom.addEventListener('click', async () => {
+      // assert 将来会改为 with，目前还处于提案阶段 https://github.com/tc39/proposal-import-attributes
+      const cssModule = await import('./style.css', { assert: { type: 'css' } });
+      console.log(cssModule.default);
+    })
+
+  </script>
+</body>
+</html>
