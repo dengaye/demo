@@ -5,4 +5,4 @@
 2. 后端实现 backend implementation。使用 Apollo Server 构建 GraphQL API，并可以通过任何方式获取数据。
 3. 前端实现 frontend implementation。
 
-好处：前后端可以并行工作，ji
+好处：前后端可以并行工作，
