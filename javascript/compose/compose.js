@@ -16,6 +16,11 @@ function compose(...funcs) {
   }) 
 }
 
+function add(a) { return a + 10}
+function multiply(a) {return a * 2}
+
+compose(add, multiply)(2) // 14
+
 /**
  * 
  * @param  {...any} funcs 函数集合， 从左往右执行
