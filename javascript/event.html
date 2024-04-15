@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event</title>
+</head>
+
+<body>
+  <div>
+    div
+    <button>click me</button>
+  </div>
+
+  <script>
+    const btn = document.querySelector('button');
+    const box = document.querySelector('div');
+
+    // function debounce(func, wait) {
+    //   let timer = null;
+    //   return function() {
+    //     const context = this;
+    //     const args = arguments;
+    //     console.log("timer::", timer)
+    //     if (!timer) func.apply(context, args)
+    //     clearTimeout(timer);
+    //     timer = setTimeout(() => {
+    //       func.apply(context, args)
+    //     }, wait);
+    //   }
+    // }
+
+    function _debounce(func, delay) {
+      let timer;  // 定时器
+
+      return function () {
+        let context = this;  // 记录 this 值,防止在回调函数中丢失
+        let args = arguments;  // 函数参数
+
+        // 标识是否立即执行
+        let isImmediately = !timer;
+
+        //如果定时器存在，则清除定时器(如果没有,也没必要进行处理)
+        timer ? clearTimeout(timer) : null;
+
+        timer = setTimeout(() => {
+          timer = null;
+        }, delay);
+
+        // isImmediately 为 true 则 执行函数(即首次触发事件)
+        isImmediately ? func.apply(context, args) : null;
+      }
+    }
+    function debounce(func, delay) {
+      let timer = null;
+
+      return function () {
+        const context = this;
+        const args = arguments;
+        const canDo = !timer;
+
+        if (timer) clearTimeout(timer);
+
+        timer = setTimeout(() => {
+          timer = null;
+          if (!canDo) {
+            // func.apply(context, args);
+          }
+        }, delay);
+        if (canDo) {
+          func.apply(context, args);
+        }
+      }
+    }
+
+    // function throttle(func, wait) {
+    //   let timer = null;
+    //   return function () {
+    //     const args = arguments;
+    //     const context = this;
+    //     if (!timer) {
+    //       timer = setTimeout(function () {
+    //         timer = null;
+    //         func.apply(context, args);
+    //       }, wait)
+    //     }
+    //   }
+    // }
+
+    function throttle(func, limit) {
+      let prevTime = 0;
+      return function () {
+        const now = Date.now();
+        const context = this;
+        const args = arguments;
+
+        if (now - prevTime > limit) {
+          func.apply(context, args);
+          prevTime = now;
+        }
+      }
+    }
+
+    function handler() {
+      console.log(Math.random() * 10)
+    }
+    btn.addEventListener('click', throttle(handler, 500))
+
+    // btn.onclick = function() {
+    //   console.log('button click')
+    // }
+
+    // box.onclick = function() {
+    //   console.log('div click')
+    // }
+
+
+    // 模拟时间
+    function useCapture() {
+      btn.addEventListener('click', function () {
+        console.log('button click')
+      }, true)
+      box.addEventListener('click', function () {
+        console.log('div click')
+      }, true)
+
+      document.documentElement.addEventListener('click', function () {
+        console.log('html click')
+      }, true)
+    }
+
+    // useCapture();
+  </script>
+</body>
+
+</html>
